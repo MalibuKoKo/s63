@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
+  "packages": {
+    "git": {
+      "version": "latest",
+      "disable_plugin": true
+    },
+    "gnumake": {
+      "version": "latest",
+      "disable_plugin": true
+    },
+    "pm2": {
+      "version": "latest",
+      "disable_plugin": true
+    },
+    "python2": {
+      "version":        "latest",
+      "allow_insecure": ["python-2.7.18.8"]
+    }
+  },
+  "env": {
+    "PYTHON": "$DEVBOX_PACKAGES_DIR/bin/python"
+  },
+  "shell": {
+    "init_hook": [
+      "curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash",
+      "nvm install 8.4.0",
+      "nvm use 8.4.0",
+      "export PYTHON=$DEVBOX_PACKAGES_DIR/bin/python",
+      "cd code"
+    ],
+    "scripts": {
+      "test": [
+        "echo \"Error: no test specified\" && exit 1"
+      ]
+    }
+  }
+}
