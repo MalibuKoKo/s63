@@ -264,6 +264,74 @@
           "store_path": "/nix/store/i3vgw03apvryl94lqn229rxmiqrihnz8-python-2.7.18.8"
         }
       }
+    },
+    "vim@latest": {
+      "last_modified": "2025-02-07T11:26:36Z",
+      "resolved": "github:NixOS/nixpkgs/d98abf5cf5914e5e4e9d57205e3af55ca90ffc1d#vim",
+      "source": "devbox-search",
+      "version": "9.1.1046",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/rx2i32cjx1y09n3qr5939xxfqjpkrhsr-vim-9.1.1046",
+              "default": true
+            },
+            {
+              "name": "xxd",
+              "path": "/nix/store/kbq8w3npsqgdipxc3ml57z67s0gn95yf-vim-9.1.1046-xxd",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/rx2i32cjx1y09n3qr5939xxfqjpkrhsr-vim-9.1.1046"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/j67dghzznffvqvdg4q676ygw2pif1hw9-vim-9.1.1046",
+              "default": true
+            },
+            {
+              "name": "xxd",
+              "path": "/nix/store/0jh6sz9n3hrx7rnb44fq3xngya14ds4j-vim-9.1.1046-xxd",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/j67dghzznffvqvdg4q676ygw2pif1hw9-vim-9.1.1046"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/n4rw363dm6mmi8zrcyzd8k0yhmnyw333-vim-9.1.1046",
+              "default": true
+            },
+            {
+              "name": "xxd",
+              "path": "/nix/store/kr9p6d9ws269mq9mf0b7al60b687x862-vim-9.1.1046-xxd",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/n4rw363dm6mmi8zrcyzd8k0yhmnyw333-vim-9.1.1046"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/91af2356mvkx4km3ngqi7sgfv6kimnc7-vim-9.1.1046",
+              "default": true
+            },
+            {
+              "name": "xxd",
+              "path": "/nix/store/4n2k7vffrqzgm8pxa1a4vdky1hzfyl2d-vim-9.1.1046-xxd",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/91af2356mvkx4km3ngqi7sgfv6kimnc7-vim-9.1.1046"
+        }
+      }
     }
   }
 }

@@ -2,24 +2,27 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
   "packages": {
     "git": {
-      "version": "latest",
+      "version":        "latest",
       "disable_plugin": true
     },
     "gnumake": {
-      "version": "latest",
+      "version":        "latest",
       "disable_plugin": true
     },
     "pm2": {
-      "version": "latest",
+      "version":        "latest",
       "disable_plugin": true
     },
     "python2": {
       "version":        "latest",
-      "allow_insecure": ["python-2.7.18.8"]
-    }
+      "allow_insecure": ["python27-2.7.17"]
+    },
+    "vim": "latest"
   },
   "env": {
-    "PYTHON": "$DEVBOX_PACKAGES_DIR/bin/python"
+    "NIXPKGS_ALLOW_INSECURE": "1",
+    "PYTHON": "$DEVBOX_PACKAGES_DIR/bin/python",
+    "NVM_DIR": "$HOME/.nvm"
   },
   "shell": {
     "init_hook": [
@@ -27,6 +30,7 @@
       "nvm install 8.4.0",
       "nvm use 8.4.0",
       "export PYTHON=$DEVBOX_PACKAGES_DIR/bin/python",
+      "sudo apt install -y make pigpio libpigpio-dev",
       "cd code"
     ],
     "scripts": {
