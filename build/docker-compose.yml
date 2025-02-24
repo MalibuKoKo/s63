@@ -1,0 +1,12 @@
+
+services:
+  &front s63:
+    labels:
+      - "traefik.http.routers.s63.rule=Host(`s63.127.0.0.1.sslip.io`)"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    image: *front
+    container_name: *front
+    network_mode: bridge
