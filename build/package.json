@@ -31,5 +31,6 @@
   "cpu": [
     "arm",
     "arm64"
-  ]
+  ],
+  "type": "module"
 }

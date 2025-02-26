@@ -1,2 +1,2 @@
 
-var Phone = require('./Phone');
+import Phone from "./Phone.js";
