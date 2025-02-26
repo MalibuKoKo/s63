@@ -2,3 +2,6 @@
 .cache
 configure.js
 node_modules
+build/.devbox
+build/.cache
+devbox*

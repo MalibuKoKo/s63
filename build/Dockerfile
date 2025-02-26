@@ -3,7 +3,7 @@
 FROM arm32v7/node:18 AS builder
 WORKDIR /app
 RUN npm install -g pnpm
-COPY package*.json .
+COPY build/package*.json .
 ENV PNPM_NO_VERIFY_STORE=true
 # Désactiver la vérification des builds
 RUN pnpm config set unsafe-builds true
@@ -11,8 +11,11 @@ RUN pnpm config set unsafe-builds true
 RUN pnpm explain-builds && pnpm approve-builds || true
 # Installer les dépendances
 RUN pnpm install --no-frozen-lockfile
-# RUN npm install
-# RUN npm ci
-# RUN --mount=type=cache,target=/root/.npm,sharing=locked npm ci --prefer-offline
-COPY . .
-# RUN npm run build
+
+FROM arm32v7/node:18 AS run
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+WORKDIR /app
+COPY --from=builder /app/node_modules/ /app/node_modules/
+COPY code .
+RUN rm -f package.json yarn.lock binding.gyp
+COPY build/package*.json .
