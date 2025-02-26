@@ -16,7 +16,7 @@
           "docker buildx inspect --bootstrap --builder s63"
         ],
         "build": [
-          "docker buildx build --platform linux/arm/v7 --cache-to=type=inline --cache-from=type=registry,ref=nicolas/s63:cache -t nicolas/s63:rpi3 --load ."
+          "docker buildx build --platform linux/arm/v7 --cache-from=type=local,src=./.cache --cache-to=type=local,dest=./.cache -t nicolas/s63:rpi3 --load ."
         ],
         "run": [
           "docker run -it --rm --platform linux/arm/v7 --entrypoint bash nicolas/s63:rpi3"

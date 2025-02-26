@@ -15,8 +15,15 @@
     "babel-preset-stage-0": "^6.24.1",
     "date-fns": "^4.1.0",
     "feedr": "^4.8.0",
-    "infoclimat": "^1.1.2"
+    "infoclimat": "^1.1.2",
+    "johnny-five": "^2.1.0"
   },
-  "os": ["darwin", "linux"],
-  "cpu": ["arm","arm64"]
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "cpu": [
+    "arm",
+    "arm64"
+  ]
 }
