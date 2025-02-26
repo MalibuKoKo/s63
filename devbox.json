@@ -1,42 +1,31 @@
 {
-  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
-  "packages": {
-    "git": {
-      "version":        "latest",
-      "disable_plugin": false
-    },
-    "gnumake": {
-      "version":        "latest",
-      "disable_plugin": false
-    },
-    "pm2": {
-      "version":        "latest",
-      "disable_plugin": false
-    },
-    "python2": {
-      "version":        "latest",
-      "allow_insecure": ["python-2.7.18.8"]
-    },
-    "vim": "latest"
-  },
-  "env": {
-    "NIXPKGS_ALLOW_INSECURE": "1",
-    "PYTHON": "$DEVBOX_PACKAGES_DIR/bin/python",
-    "NVM_DIR": "$HOME/.nvm"
-  },
-  "shell": {
-    "init_hook": [
-      "curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash",
-      "nvm install 8.4.0",
-      "nvm use 8.4.0",
-      "export PYTHON=$DEVBOX_PACKAGES_DIR/bin/python",
-      "export PM2_NODE_OPTIONS=\"--loader ts-node/esm\"",
-      "sudo apt install -y make pigpio libpigpio-dev build-essential"
-    ],
-    "scripts": {
-      "test": [
-        "echo \"Error: no test specified\" && exit 1"
-      ]
+    "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
+    "packages": [],
+    "shell": {
+      "init_hook": [
+        "echo 'Welcome to devbox!' > /dev/null"
+      ],
+      "scripts": {
+        "test": [
+          "echo \"Error: no test specified\" && exit 1"
+        ],
+        "init": [
+          "docker run --rm --privileged tonistiigi/binfmt --install all",
+          "docker run --rm --platform linux/arm/v7 busybox uname -m",
+          "docker buildx use s63||docker buildx create --name s63 --use",
+          "docker buildx inspect --bootstrap --builder s63"
+        ],
+        "build": [
+          "docker buildx build --platform linux/arm/v7 --cache-from=type=local,src=./build/.cache --cache-to=type=local,dest=./build/.cache -t nicolas/s63:rpi3 --load -f build/Dockerfile ."
+        ],
+        "run": [
+          "docker run -it --rm --platform linux/arm/v7 --entrypoint bash --name s63 nicolas/s63:rpi3"
+        ],
+        "cp": [
+          "docker cp s63:/app/package.json build/package.json",
+          "docker cp s63:/app/package-lock.json build/package-lock.json"
+        ]
+      }
     }
   }
-}
+  

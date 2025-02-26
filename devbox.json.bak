@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
+  "packages": {
+    "git": {
+      "version":        "latest",
+      "disable_plugin": false
+    },
+    "gnumake": {
+      "version":        "latest",
+      "disable_plugin": false
+    },
+    "pm2": {
+      "version":        "latest",
+      "disable_plugin": false
+    },
+    "python2": {
+      "version":        "latest",
+      "allow_insecure": ["python-2.7.18.8"]
+    },
+    "vim": "latest"
+  },
+  "env": {
+    "NIXPKGS_ALLOW_INSECURE": "1",
+    "PYTHON": "$DEVBOX_PACKAGES_DIR/bin/python",
+    "NVM_DIR": "$HOME/.nvm"
+  },
+  "shell": {
+    "init_hook": [
+      "curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash",
+      "nvm install 8.4.0",
+      "nvm use 8.4.0",
+      "export PYTHON=$DEVBOX_PACKAGES_DIR/bin/python",
+      "export PM2_NODE_OPTIONS=\"--loader ts-node/esm\"",
+      "sudo apt install -y make pigpio libpigpio-dev build-essential"
+    ],
+    "scripts": {
+      "test": [
+        "echo \"Error: no test specified\" && exit 1"
+      ]
+    }
+  }
+}
