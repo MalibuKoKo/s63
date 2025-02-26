@@ -20,6 +20,10 @@
         ],
         "run": [
           "docker run -it --rm --platform linux/arm/v7 --entrypoint bash --name s63 nicolas/s63:rpi3"
+        ],
+        "cp": [
+          "docker cp s63:/app/package.json package.json",
+          "docker cp s63:/app/package-lock.json package-lock.json"
         ]
       }
     }
