@@ -1,3 +1,4 @@
+# https://github.com/docker-library/docs
 # buildtime
 # FROM public.ecr.aws/docker/library/node:18 AS builder
 FROM arm32v7/node:18 AS builder
@@ -21,3 +22,4 @@ COPY --from=builder /app/node_modules/ /app/node_modules/
 COPY code .
 RUN rm -f package.json yarn.lock binding.gyp
 COPY build/package*.json .
+CMD ["node","src/index.js"]
