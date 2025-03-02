@@ -1,8 +1,7 @@
 # https://github.com/docker-library/docs
 # buildtime
 # FROM public.ecr.aws/docker/library/node:18 AS builder
-FROM arm32v7/node:18 AS builder
-# RUN apt update && apt install -y sudo build-essential python3 node-gyp
+FROM arm64v8/node:18 AS builder
 WORKDIR /app
 RUN npm install -g pnpm
 COPY build/package*.json .
@@ -14,9 +13,16 @@ RUN pnpm explain-builds && pnpm approve-builds || true
 # Installer les dépendances
 RUN pnpm install --no-frozen-lockfile
 
-FROM arm32v7/node:18 AS run
+FROM arm64v8/node:18 AS run
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-RUN apt update && apt install -y sudo build-essential python3 node-gyp
+RUN apt update && apt install -y sudo build-essential python3 node-gyp python3-setuptools wget
+RUN wget https://github.com/joan2937/pigpio/archive/master.tar.gz \
+    && tar xzf master.tar.gz \
+    && cd pigpio-master \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -rf pigpio-master master.tar.gz
 WORKDIR /app
 COPY --from=builder /app/node_modules/ /app/node_modules/
 COPY code .
