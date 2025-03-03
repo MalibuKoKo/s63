@@ -1,0 +1,26 @@
+
+services:
+  &app s63:
+    labels:
+      - "traefik.http.routers.s63.rule=Host(`s63.127.0.0.1.sslip.io`)"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: "1"
+      target: run # builder
+      platforms:
+      - linux/arm64 # linux/arm64/v8
+      tags:
+      - nicolas/s63:rpi3
+      cache_from:
+      # - nicolas/s63:cache
+      - type=local,src=./.cache
+      cache_to:
+      # - nicolas/s63:cache
+      - type=local,dest=./.cache,mode=max
+    platform: linux/arm64
+    image: nicolas/s63:rpi3
+    container_name: *app
+    network_mode: bridge
+    entrypoint: ["/bin/bash"]

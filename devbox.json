@@ -1,6 +1,10 @@
 {
     "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
     "packages": [],
+    "env": {
+      "COMPOSE_DOCKER_CLI_BUILD": "1",
+      "DOCKER_BUILDKIT": "1"
+    },
     "shell": {
       "init_hook": [
         "echo 'Welcome to devbox!' > /dev/null"
@@ -15,14 +19,10 @@
           "docker buildx use s63||docker buildx create --name s63 --use",
           "docker buildx inspect --bootstrap --builder s63"
         ],
-        "build": [
-          "docker buildx build --platform linux/arm64 --cache-from=type=local,src=./build/.cache --cache-to=type=local,dest=./build/.cache --tag nicolas/s63:rpi3 --load --file build/Dockerfile ."
-        ],
-        "build_target_builder": [
-          "docker buildx build --platform linux/arm64 --cache-from=type=local,src=./build/.cache --cache-to=type=local,dest=./build/.cache --tag nicolas/s63:rpi3 --load --file build/Dockerfile --target builder ."
-        ],
-        "run": [
-          "docker run -it --rm --platform linux/arm64 --name s63 nicolas/s63:rpi3"
+        "compose": [
+          "docker buildx use s63||docker buildx create --name s63 --use",
+          "docker buildx build --platform linux/arm64 --cache-from=type=local,src=./build/.cache --cache-to=type=local,dest=./build/.cache --tag nicolas/s63:rpi3 --load --file build/Dockerfile .",
+          "docker-compose --file build/docker-compose.yml up --no-build --watch"
         ],
         "cp": [
           "docker cp s63:/app/package.json build/package.json",

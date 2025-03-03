@@ -4,7 +4,7 @@
 FROM arm64v8/node:18 AS builder
 WORKDIR /app
 RUN npm install -g pnpm
-COPY build/package*.json .
+COPY code/package*.json .
 ENV PNPM_NO_VERIFY_STORE=true
 # Désactiver la vérification des builds
 RUN pnpm config set unsafe-builds true
