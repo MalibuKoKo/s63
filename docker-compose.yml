@@ -10,7 +10,7 @@ services:
         BUILDKIT_INLINE_CACHE: "1"
       target: run # builder
       platforms:
-      - linux/arm64s
+      - linux/arm64
       tags:
       - nicolas/s63:rpi3
       cache_from:
