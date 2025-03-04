@@ -21,4 +21,12 @@ services:
     image: nicolas/s63:rpi3
     container_name: *app
     network_mode: bridge
-    entrypoint: ["/bin/bash", "-c", "while true; do echo 'Service en attente...'; sleep 10; done"]
+    entrypoint: ["/bin/bash", "-c", "while true; do node src/index.js; sleep 10; done"]
+    develop:
+      watch:
+        - action: sync
+          path: ./code/src
+          target: /app/src
+        # - action: rebuild
+        #   path: ./app_web/requirements.txt
+        #   target: /app/requirements.txt

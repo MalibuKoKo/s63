@@ -1,17 +1,17 @@
 "use strict";
 
 import fs from "fs";
-import os from "os";
-import path from "path";
-import pkg from "johnny-five";
-const { Board, Relay, Button } = pkg;
-import fetch from "node-fetch";
+// import os from "os";
+// import path from "path";
+// import pkg from "johnny-five";
+// const { Board, Relay, Button } = pkg;
+// import fetch from "node-fetch";
 
-let Raspi = null
-if (os.platform() !== 'darwin') {
-  const raspiModule = await import("raspi-io");
-  Raspi = raspiModule.default;
-}
+// let Raspi = null
+// if (os.platform() !== 'darwin') {
+//   const raspiModule = await import("raspi-io");
+//   Raspi = raspiModule.default;
+// }
 
 import xs from "xstream";
 import fromEvent from "xstream/extra/fromEvent.js";
@@ -22,14 +22,14 @@ import delay from "xstream/extra/delay.js";
 // import { scan } from "./sound.js"
 
 
-const getUrlStream = url => fetch(url).then(res => res.body).catch(e => console.log(e));
-const getTTSStream = text => getUrlStream(`http://translate.google.com/translate_tts?tl=fr&q=${encodeURIComponent(text)}&client=gtx&ie=UTF-8`);
+// const getUrlStream = url => fetch(url).then(res => res.body).catch(e => console.log(e));
+// const getTTSStream = text => getUrlStream(`http://translate.google.com/translate_tts?tl=fr&q=${encodeURIComponent(text)}&client=gtx&ie=UTF-8`);
 
-const getLocalSoundPath = relativePath => path.join(PLAN_PATH, relativePath);
+// const getLocalSoundPath = relativePath => path.join(PLAN_PATH, relativePath);
 
-const pickRandom = arr => arr[Math.floor(Math.random() * arr.length)];
+// const pickRandom = arr => arr[Math.floor(Math.random() * arr.length)];
 
-export default Phone;
+// export default Phone;
 
 // const playSilence = (duration) => new Promise((resolve, reject) => {
 //   board.info("playSilence", duration);
