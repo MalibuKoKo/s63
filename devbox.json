@@ -1,10 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
     "packages": [],
-    "env": {
-      "COMPOSE_DOCKER_CLI_BUILD": "1",
-      "DOCKER_BUILDKIT": "1"
-    },
     "shell": {
       "init_hook": [
         "echo 'Welcome to devbox!' > /dev/null"
@@ -13,16 +9,10 @@
         "test": [
           "echo \"Error: no test specified\" && exit 1"
         ],
-        "init": [
-          "docker run --rm --privileged tonistiigi/binfmt --install all",
-          "docker run --rm --platform linux/arm64 busybox uname -m",
-          "docker buildx use s63||docker buildx create --name s63 --use",
-          "docker buildx inspect --bootstrap --builder s63"
-        ],
         "compose": [
+          "docker run --rm --privileged tonistiigi/binfmt --install all",
           "docker buildx use s63||docker buildx create --name s63 --use",
-          "docker buildx build --platform linux/arm64 --cache-from=type=local,src=./build/.cache --cache-to=type=local,dest=./build/.cache --tag nicolas/s63:rpi3 --load --file build/Dockerfile .",
-          "docker-compose --file build/docker-compose.yml up --no-build --watch"
+          "docker-compose up --build --watch"
         ],
         "cp": [
           "docker cp s63:/app/package.json build/package.json",

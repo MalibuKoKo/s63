@@ -21,4 +21,4 @@ services:
     image: nicolas/s63:rpi3
     container_name: *app
     network_mode: bridge
-    entrypoint: ["/bin/bash"]
+    entrypoint: ["/bin/bash", "-c", "while true; do echo 'Service en attente...'; sleep 10; done"]
