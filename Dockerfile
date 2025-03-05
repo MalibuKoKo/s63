@@ -14,18 +14,19 @@ RUN pnpm explain-builds && pnpm approve-builds || true
 RUN pnpm install --no-frozen-lockfile
 
 FROM arm64v8/node:18 AS run
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-RUN apt update && apt install -y sudo build-essential python3 node-gyp python3-setuptools wget
-RUN wget https://github.com/joan2937/pigpio/archive/master.tar.gz \
-    && tar xzf master.tar.gz \
-    && cd pigpio-master \
-    && make \
-    && make install \
-    && cd .. \
-    && rm -rf pigpio-master master.tar.gz
+# RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+# RUN apt update && apt install -y sudo build-essential python3 node-gyp python3-setuptools wget
+# RUN wget https://github.com/joan2937/pigpio/archive/master.tar.gz \
+#     && tar xzf master.tar.gz \
+#     && cd pigpio-master \
+#     && make \
+#     && make install \
+#     && cd .. \
+#     && rm -rf pigpio-master master.tar.gz
 WORKDIR /app
 COPY --from=builder /app/node_modules/ /app/node_modules/
 COPY code .
-RUN rm -f package.json yarn.lock binding.gyp
-COPY build/package*.json .
+# RUN rm -f package.json yarn.lock binding.gyp
+# COPY build/package*.json .
+COPY package*.json .
 CMD ["node","src/index.js"]

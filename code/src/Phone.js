@@ -1,13 +1,14 @@
 "use strict";
 
 import fs from "fs";
-// import os from "os";
-// import path from "path";
-// import pkg from "johnny-five";
-// const { Board, Relay, Button } = pkg;
-// import fetch from "node-fetch";
+import os from "os";
+import path from "path";
+import { fileURLToPath } from "url";
+import pkg from "johnny-five";
+const { Board, Relay, Button } = pkg;
+import fetch from "node-fetch";
 
-// let Raspi = null
+let Raspi = null
 // if (os.platform() !== 'darwin') {
 //   const raspiModule = await import("raspi-io");
 //   Raspi = raspiModule.default;
@@ -21,46 +22,49 @@ import delay from "xstream/extra/delay.js";
 // import Player from "./Player.js";
 // import { scan } from "./sound.js"
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// const getUrlStream = url => fetch(url).then(res => res.body).catch(e => console.log(e));
-// const getTTSStream = text => getUrlStream(`http://translate.google.com/translate_tts?tl=fr&q=${encodeURIComponent(text)}&client=gtx&ie=UTF-8`);
+const getUrlStream = url => fetch(url).then(res => res.body).catch(e => console.log(e));
+const getTTSStream = text => getUrlStream(`http://translate.google.com/translate_tts?tl=fr&q=${encodeURIComponent(text)}&client=gtx&ie=UTF-8`);
 
-// const getLocalSoundPath = relativePath => path.join(PLAN_PATH, relativePath);
+const getLocalSoundPath = relativePath => path.join(PLAN_PATH, relativePath);
 
-// const pickRandom = arr => arr[Math.floor(Math.random() * arr.length)];
-
-// export default Phone;
-
-// const playSilence = (duration) => new Promise((resolve, reject) => {
-//   board.info("playSilence", duration);
-//   player.stop();
-//   setTimeout(() => {
-//     resolve()
-//   }, duration * 1000)
-// })
-
-// const playStream = (stream, options) => {
-//   board.info("playStream", options);
-//   return player.play(stream, options);
-// };
-
-// const playSine = () => {
-//   board.info("playSine");
-//   return player.sine();
-// };
-
-// const playLocalSound = (relativePath, cb) => {
-//   board.info("playLocalSound", relativePath);
-//   return playStream(fs.createReadStream(getLocalSoundPath(relativePath)));
-// };
-
-// const playText = (text, options) => {
-//   return getTTSStream(text).then(stream => playStream(stream, options))
-// }
+const pickRandom = arr => arr[Math.floor(Math.random() * arr.length)];
 
 
-// const PLAN_PATH = path.join(__dirname, "..", "plan");
-// const SOUNDS = scan(PLAN_PATH);
+const playSilence = (duration) => new Promise((resolve, reject) => {
+  board.info("playSilence", duration);
+  player.stop();
+  setTimeout(() => {
+    resolve()
+  }, duration * 1000)
+})
+
+const playStream = (stream, options) => {
+  board.info("playStream", options);
+  return player.play(stream, options);
+};
+
+const playSine = () => {
+  board.info("playSine");
+  return player.sine();
+};
+
+const playLocalSound = (relativePath, cb) => {
+  board.info("playLocalSound", relativePath);
+  return playStream(fs.createReadStream(getLocalSoundPath(relativePath)));
+};
+
+const playText = (text, options) => {
+  return getTTSStream(text).then(stream => playStream(stream, options))
+}
+
+
+
+const PLAN_PATH = path.join(__dirname, "..", "plan");
+// console.log(PLAN_PATH);
+const SOUNDS = scan(PLAN_PATH);
 
 // const board = new five.Board({ io: Raspi && new Raspi() || null });
 
@@ -216,3 +220,6 @@ import delay from "xstream/extra/delay.js";
 
 //   rotaryButton.on("up", () => rotary.onPulse());
 // });
+
+export default class Phone {
+}
