@@ -18,8 +18,8 @@ import xs from "xstream";
 import fromEvent from "xstream/extra/fromEvent.js";
 import delay from "xstream/extra/delay.js";
 
-// import Rotary from "./Rotary.js";
-// import Player from "./Player.js";
+import Rotary from "./Rotary.js";
+import Player from "./Player.js";
 // import { scan } from "./sound.js"
 
 const __filename = fileURLToPath(import.meta.url);
@@ -64,7 +64,7 @@ const playText = (text, options) => {
 
 const PLAN_PATH = path.join(__dirname, "..", "plan");
 // console.log(PLAN_PATH);
-const SOUNDS = scan(PLAN_PATH);
+// const SOUNDS = scan(PLAN_PATH);
 
 // const board = new five.Board({ io: Raspi && new Raspi() || null });
 

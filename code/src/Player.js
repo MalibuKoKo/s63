@@ -1,5 +1,4 @@
-var play = require("./sound").play;
-var sine = require("./sound").sine;
+import { play, sine } from "./sound.js";
 
 class Player {
   constructor() {
@@ -27,7 +26,7 @@ class Player {
       speaker.on("finish", () => {
         resolve();
         if (options.cb) {
-          cb();
+          options.cb(); // Correction : options.cb() au lieu de cb()
         }
         if (options.sine) {
           this.sine();
@@ -37,4 +36,4 @@ class Player {
   }
 }
 
-module.exports = Player
+export default Player;
