@@ -15,8 +15,9 @@
           "docker-compose up --build --watch"
         ],
         "cp": [
-          "docker cp s63:/app/package.json build/package.json",
-          "docker cp s63:/app/package-lock.json build/package-lock.json"
+          "docker cp s63:/app/package.json code/package.json",
+          "docker cp s63:/app/package-lock.json code/package-lock.json",
+          "docker cp s63:/app/pnpm-lock.yaml code/pnpm-lock.yaml"
         ]
       }
     }

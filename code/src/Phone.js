@@ -20,7 +20,7 @@ import delay from "xstream/extra/delay.js";
 
 import Rotary from "./Rotary.js";
 import Player from "./Player.js";
-// import { scan } from "./sound.js"
+import { scan } from "./sound.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

@@ -1,31 +1,40 @@
 import fs from "fs";
 import path from "path";
-import lame from "lame";
-import Speaker from "speaker";
+import ffmpeg from "fluent-ffmpeg";
+import { spawn } from "child_process";
 import Oscillator from "audio-oscillator";
 
 function play(stream) {
-  var speaker = new Speaker();
-  stream.pipe(new lame.Decoder()).pipe(speaker);
-  return speaker;
+  const ffplay = spawn("ffplay", ["-nodisp", "-autoexit", "-"], { stdio: ["pipe", "ignore", "ignore"] });
+  ffmpeg(stream)
+    .format("wav")
+    .on("error", err => console.error("FFmpeg error:", err))
+    .pipe(ffplay.stdin);
+  return ffplay;
 }
 
 function sine() {
-  var speaker = new Speaker();
-  return Oscillator({
+  const ffplay = spawn("ffplay", ["-nodisp", "-autoexit", "-"], { stdio: ["pipe", "ignore", "ignore"] });
+  Oscillator({
     frequency: 440,
     detune: 0,
     type: "sine",
     normalize: true
-  }).pipe(speaker);
-  return speaker;
+  }).pipe(ffplay.stdin);
+  return ffplay;
 }
 
-const isHiddenFile = path => path.charAt(0) === ".";
-const isDirectory = path => fs.statSync(path).isDirectory();
-const isSound = path => path.substring(path.length - 4) === ".mp3";
-const listDir = (path, filter = () => true) =>
-  fs.readdirSync(path).filter(f => !isHiddenFile(f)).filter(filter);
+const isHiddenFile = filePath => filePath.charAt(0) === ".";
+const isDirectory = dirPath => {
+  try {
+    return fs.statSync(dirPath).isDirectory();
+  } catch (error) {
+    return false;
+  }
+};
+const isSound = filePath => path.extname(filePath) === ".mp3";
+const listDir = (dirPath, filter = () => true) =>
+  fs.readdirSync(dirPath).filter(f => !isHiddenFile(f)).filter(filter);
 
 const scan = root => listDir(root, name =>
   isDirectory(path.join(root, name))).reduce(
@@ -38,5 +47,4 @@ const scan = root => listDir(root, name =>
   {}
 );
 
-// Utilise 'export' pour rendre les fonctions accessibles en ESM
 export { play, sine, scan };
