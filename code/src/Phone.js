@@ -224,3 +224,6 @@ async function init() {
 }
 
 init().catch(console.error);
+
+export default class Phone {
+}
