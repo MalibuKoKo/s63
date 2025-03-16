@@ -27,6 +27,5 @@ services:
         - action: sync
           path: ./code/src
           target: /app/src
-        # - action: rebuild
-        #   path: ./app_web/requirements.txt
-        #   target: /app/requirements.txt
+    environment:
+      USE_GPIOMOCK: "true"
