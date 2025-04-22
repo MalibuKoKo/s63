@@ -64,7 +64,6 @@ async function init() {
   } else {
     // Sinon, mocker le GPIO (en fonction de USE_GPIOMOCK)
     console.log("GPIO non disponible ou mocké, utilisation d'une version factice");
-
     // Création d'un mock pour les pins GPIO de Johnny-Five
     Raspi = function () {
       this.pins = []; // Liste des pins, vide pour le mock
@@ -80,7 +79,7 @@ async function init() {
           },
         };
       };
-
+      
       // Mock de la méthode 'once' utilisée pour l'événement de la carte
       this.once = (event, callback) => {
         if (event === "ready") {
@@ -90,6 +89,7 @@ async function init() {
       };
     };
   }
+  console.log("ici");
 
   const board = new Board({ io: Raspi ? new Raspi() : undefined });
 
