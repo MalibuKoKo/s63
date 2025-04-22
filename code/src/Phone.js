@@ -89,7 +89,7 @@ async function init() {
       };
     };
   }
-  console.log("ici");
+  console.log("icif");
 
   const board = new Board({ io: Raspi ? new Raspi() : undefined });
 
