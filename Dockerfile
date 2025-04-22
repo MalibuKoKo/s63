@@ -2,7 +2,15 @@
 # buildtime
 # FROM public.ecr.aws/docker/library/node:18 AS builder
 FROM arm64v8/node:18 AS builder
-RUN apt update && apt install -y libasound2-dev
+RUN apt update && apt install -y --no-install-recommends \
+  libsndfile1-dev \
+  libasound2-dev \
+  alsa-utils \
+  alsa-oss \
+  alsa-tools \
+  libasound2 \
+  libasound2-plugins \
+  pipewire-audio
 WORKDIR /app
 RUN npm install -g pnpm
 COPY code/package*.json .
