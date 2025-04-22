@@ -10,7 +10,8 @@ RUN apt update && apt install -y --no-install-recommends \
   alsa-tools \
   libasound2 \
   libasound2-plugins \
-  pipewire-audio
+  pipewire-audio \
+  pulseaudio-utils
 WORKDIR /app
 RUN npm install -g pnpm
 COPY code/package*.json .

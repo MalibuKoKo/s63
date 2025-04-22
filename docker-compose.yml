@@ -22,16 +22,19 @@ services:
     container_name: *app
     network_mode: bridge
     privileged: true
-    devices:
-      - "/dev/snd:/dev/snd"  # Expose le périphérique audio de l'hôte au conteneur
+    # devices:
+    #   - "/dev/snd:/dev/snd"  # Expose le périphérique audio de l'hôte au conteneur
     volumes:
-      - "/dev/snd:/dev/snd"  # Monte aussi le périphérique audio dans le conteneur
-      - "/etc/alsa/:/etc/alsa/"  # Monte le dossier ALSA
-      - "/usr/share/alsa:/usr/share/alsa"
+      # - "/dev/snd:/dev/snd"  # Monte aussi le périphérique audio dans le conteneur
+      # - "/etc/alsa/:/etc/alsa/"  # Monte le dossier ALSA
+      # - "/usr/share/alsa:/usr/share/alsa"
       - "$HOME/Musique:$HOME/Musique:ro"
-      - "/run/user/1001/pulse/native:/run/user/1001/pulse/native"
+      # - "/run/user/1001/pulse/native:/run/user/1001/pulse/native"
+      - "$XDG_RUNTIME_DIR/pulse/native:/tmp/pulse_socket"
       - "/etc/passwd:/etc/passwd:ro"
       - "/etc/group:/etc/group:ro"
+      # - "$XDG_RUNTIME_DIR/pipewire-0:$XDG_RUNTIME_DIR/pipewire-0"
+      - "/etc/machine-id:/etc/machine-id:ro"
     group_add: 
       - audio # "$(getent group audio | cut -d: -f3)"
     entrypoint: ["/bin/bash", "-c", "while true; do node src/index.js; sleep 10; done"]
@@ -42,6 +45,7 @@ services:
           target: /app/src
     environment:
       USE_GPIOMOCK: "true"
-      AUDIO_GID: "29"
-      PULSE_SERVER: unix:/run/user/1001/pulse/native
+      # AUDIO_GID: "29"
+      # PULSE_SERVER: unix:/run/user/1001/pulse/native #
+      PULSE_SERVER: unix:/tmp/pulse_socket
     user: 1001:1001
