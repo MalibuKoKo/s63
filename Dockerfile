@@ -14,8 +14,8 @@ RUN apt update && apt install -y --no-install-recommends \
   pulseaudio-utils
 WORKDIR /app
 RUN npm install -g pnpm
-COPY code/package*.json .
-COPY code/pnpm-lock.yaml .
+COPY code/package*.json ./
+COPY code/pnpm-lock.yaml ./
 ENV PNPM_NO_VERIFY_STORE=true
 # Désactiver la vérification des builds
 RUN pnpm config set unsafe-builds true
