@@ -89,9 +89,17 @@ async function init() {
       };
     };
   }
-  console.log("icif");
 
-  const board = new Board({ io: Raspi ? new Raspi() : undefined });
+  const board = new Board(
+    { 
+      id: "102102ef-b644-49ea-b70f-c30be84a8541",
+      debug: true,
+      repl: false,
+      isReady: false,
+      io: Raspi ? new Raspi() : undefined
+    }
+  );
+  console.log("666");
 
   // Logique des relais et des boutons
   board.on("ready", function() {

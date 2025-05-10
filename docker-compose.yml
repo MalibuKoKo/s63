@@ -49,3 +49,5 @@ services:
       # PULSE_SERVER: unix:/run/user/1001/pulse/native #
       PULSE_SERVER: unix:/tmp/pulse_socket
     # user: 0:0 # 1001:1001
+
+# docker exec -it s63 paplay /app/plan/3/starwars1.mp3
